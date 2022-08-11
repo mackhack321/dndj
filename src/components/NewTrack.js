@@ -37,12 +37,20 @@ export default function NewTrack(props) {
           onChange={(e) => setCategory(e.target.value)}
         />
       </div>
-      <button
-        className="bg-slate-500 hover:bg-slate-300 px-3 py-1 rounded-md w-fit"
-        onClick={() => props.handler(title, link, category)}
-      >
-        Add track
-      </button>
+      <div className="flex space-x-3">
+        <button
+          className="bg-slate-500 px-3 py-1 hover:bg-slate-300 rounded-md w-fit"
+          onClick={() => props.handler(title, link, category)}
+        >
+          Add track
+        </button>
+        <button
+          className="bg-rose-800 px-3 py-1 hover:bg-rose-600 rounded-md w-fit"
+          onClick={() => props.handler("", "", "")}
+        >
+          Cancel
+        </button>
+      </div>
     </div>
   );
 }
