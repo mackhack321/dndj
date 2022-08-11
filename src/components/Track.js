@@ -10,7 +10,7 @@ export default function Track(props) {
       <p>Category: {props.category}</p>
       <button
         className="absolute right-5 top-5"
-        onClick={props.handler(props.title, props.link, props.category)}
+        onClick={() => props.handler(props.title, props.link, props.category)}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
