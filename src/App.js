@@ -7,6 +7,7 @@ import NewTrack from "./components/NewTrack";
 function App() {
   const [tracks, setTracks] = useState([]);
   const [showNewTrack, setShowNewTrack] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("default");
 
   function updateTracks() {
     let tracks = JSON.parse(localStorage.getItem("tracks"));
@@ -19,18 +20,21 @@ function App() {
   }
 
   function addTrack(title, link, category) {
-    let tracks = JSON.parse(localStorage.getItem("tracks"));
-    tracks.push({
-      title: title,
-      link: link,
-      category: category,
-    });
-    localStorage.setItem("tracks", JSON.stringify(tracks));
-    updateTracks();
+    if (title === "" || link === "" || category === "") {
+      setShowNewTrack(false);
+    } else {
+      tracks.push({
+        title: title,
+        link: link,
+        category: category,
+      });
+      localStorage.setItem("tracks", JSON.stringify(tracks));
+      updateTracks();
+      setShowNewTrack(false);
+    }
   }
 
   function deleteTrack(title, link, category) {
-    let tracks = JSON.parse(localStorage.getItem("tracks"));
     tracks.forEach((track, index) => {
       if (
         track.title === title &&
@@ -44,6 +48,16 @@ function App() {
     updateTracks();
   }
 
+  function getCategories() {
+    let categories = [];
+    tracks.forEach((track) => {
+      if (!categories.includes(track.category)) {
+        categories.push(track.category);
+      }
+    });
+    return categories;
+  }
+
   useEffect(() => {
     updateTracks();
   }, []);
@@ -53,7 +67,7 @@ function App() {
       <h1 className="text-center text-4xl font-bold pt-3 text-gray-300">
         DNDJ
       </h1>
-      <div>
+      <div className="flex space-x-5 justify-center pt-5">
         <button
           className="bg-green-700 p-1 rounded-md"
           onClick={() => setShowNewTrack(true)}
@@ -73,19 +87,41 @@ function App() {
             />
           </svg>
         </button>
+        <select
+          name="category"
+          id="category"
+          className="rounded-md p-1 bg-gray-200"
+          onChange={(e) => setSelectedCategory(e.target.value)}
+        >
+          <option value="default">Choose a category</option>
+          {getCategories().map((category) => {
+            return (
+              <option value={category} key={category}>
+                {category}
+              </option>
+            );
+          })}
+        </select>
       </div>
-      {showNewTrack && <NewTrack handler={addTrack} />}
-      <div className="mt-10 grid grid-cols-5 gap-3 justify-items-center">
+      {showNewTrack && (
+        <div className="flex mt-5 justify-center">
+          <NewTrack handler={addTrack} />
+        </div>
+      )}
+      <div className="mt-10 grid grid-cols-4 auto-cols-auto justify-items-center">
         {tracks.map((track, index) => {
           return (
-            <div key={index}>
-              <Track
-                title={track.title}
-                link={track.link}
-                category={track.category}
-                handler={deleteTrack}
-              />
-            </div>
+            (track.category === selectedCategory ||
+              selectedCategory === "default") && (
+              <div key={index}>
+                <Track
+                  title={track.title}
+                  link={track.link}
+                  category={track.category}
+                  handler={deleteTrack}
+                />
+              </div>
+            )
           );
         })}
       </div>
