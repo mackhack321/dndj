@@ -108,7 +108,7 @@ function App() {
           <NewTrack handler={addTrack} />
         </div>
       )}
-      <div className="mt-10 grid grid-cols-4 auto-cols-auto justify-items-center">
+      <div className="mt-10 grid grid-cols-4 gap-5 auto-cols-auto justify-items-center">
         {tracks.map((track, index) => {
           return (
             (track.category === selectedCategory ||

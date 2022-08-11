@@ -13,7 +13,7 @@ export default function NewTrack(props) {
           type="text"
           name="title"
           id="title"
-          className="rounded-md bg-gray-300"
+          className="rounded-md bg-gray-300 px-1 w-full"
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
@@ -23,7 +23,7 @@ export default function NewTrack(props) {
           type="text"
           name="link"
           id="link"
-          className="rounded-md bg-gray-300"
+          className="rounded-md bg-gray-300 px-1 w-full"
           onChange={(e) => setLink(e.target.value)}
         />
       </div>
@@ -33,7 +33,7 @@ export default function NewTrack(props) {
           type="text"
           name="category"
           id="category"
-          className="rounded-md bg-gray-300"
+          className="rounded-md bg-gray-300 px-1 w-full"
           onChange={(e) => setCategory(e.target.value)}
         />
       </div>
