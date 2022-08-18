@@ -9,6 +9,10 @@ function App() {
   const [showNewTrack, setShowNewTrack] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("default");
 
+  function copyJson() {
+    navigator.clipboard.writeText(localStorage.getItem("tracks").toString());
+  }
+
   function updateTracks() {
     let tracks = JSON.parse(localStorage.getItem("tracks"));
     if (tracks !== null) {
@@ -125,6 +129,12 @@ function App() {
           );
         })}
       </div>
+      <button
+        className="absolute p-3 m-3 left-0 bottom-0 bg-purple-600 hover:bg-purple-400 rounded-md w-fit"
+        onClick={() => copyJson()}
+      >
+        Copy JSON to clipboard
+      </button>
     </div>
   );
 }
